@@ -16,15 +16,17 @@ const About: React.FC<AboutProps> = (props) => {
             <br />
             <div className="text-block">
                 <p>
-                    Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-                    Sed do eiusmod tempor incididunt ut labore et dolore magna
-                    aliqua. Ut enim ad minim veniam, quis nostrud exercitation.
+                    I'm an AI Engineer based in San Francisco, the heart of
+                    Silicon Valley where tech innovation thrives. I specialize
+                    in building websites, crafting social media strategies,
+                    creating custom niche software, and developing AI automations
+                    that help businesses work smarter.
                 </p>
                 <br />
                 <p>
-                    Duis aute irure dolor in reprehenderit in voluptate velit
-                    esse cillum dolore eu fugiat nulla pariatur. Feel free to
-                    contact me using{' '}
+                    Everything I know today is self-taught. I believe that
+                    passion and dedication can take you further than any
+                    traditional path. Feel free to reach out using{' '}
                     <Link to="/contact">this form</Link> or shoot me an email at{' '}
                     <a href="mailto:jc@wearescallywag.com">
                         jc@wearescallywag.com
@@ -33,15 +35,15 @@ const About: React.FC<AboutProps> = (props) => {
             </div>
             {/* <ResumeDownload /> */}
             <div className="text-block">
-                <h3>About Me</h3>
+                <h3>What I Do</h3>
                 <br />
                 <p>
-                    Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-                    Praesent euismod ultrices ante, ac laoreet nulla vestibulum
-                    vel. Donec auctor, nunc eget ultricies tincidunt, nunc nisl
-                    aliquam nunc, eget aliquam nunc nisl eget nunc. Vestibulum
-                    ante ipsum primis in faucibus orci luctus et ultrices
-                    posuere cubilia curae.
+                    My work spans across multiple domains in the tech space.
+                    From building stunning websites to managing social media
+                    presence, I help businesses establish their digital footprint.
+                    I also develop custom software solutions tailored to specific
+                    business needs and create AI-powered automations that
+                    streamline workflows and boost productivity.
                 </p>
                 <br />
                 <div className="captioned-image">
@@ -50,26 +52,24 @@ const About: React.FC<AboutProps> = (props) => {
                     </div>
                     <p>
                         <sub>
-                            <b>Figure 1:</b> A real photo of me developing this
-                            website :)
+                            <b>Figure 1:</b> Building the future, one line of code
+                            at a time
                         </sub>
                     </p>
                 </div>
 
                 <p>
-                    Nullam quis risus eget urna mollis ornare vel eu leo.
-                    Cras mattis consectetur purus sit amet fermentum. Donec
-                    ullamcorper nulla non metus auctor fringilla. Maecenas
-                    faucibus mollis interdum.
+                    Being in San Francisco puts me right at the epicenter of
+                    technological innovation. It's an environment that constantly
+                    pushes me to stay ahead of the curve and explore new
+                    possibilities in AI and software development.
                 </p>
                 <br />
                 <p>
-                    Aenean lacinia bibendum nulla sed consectetur. Cras justo
-                    odio, dapibus ac facilisis in, egestas eget quam. Morbi
-                    leo risus, porta ac consectetur ac, vestibulum at eros.
-                    Praesent commodo cursus magna, vel scelerisque nisl
-                    consectetur et. Integer posuere erat a ante venenatis
-                    dapibus posuere velit aliquet.
+                    What drives me is a genuine love for what I do. This isn't
+                    just a job for me - it's a passion. There's nothing quite
+                    like the satisfaction of solving complex problems and seeing
+                    ideas come to life through code.
                 </p>
                 <br />
                 <br />
@@ -82,20 +82,21 @@ const About: React.FC<AboutProps> = (props) => {
                             flexDirection: 'column',
                         }}
                     >
-                        <h3>My Hobbies</h3>
+                        <h3>Beyond the Code</h3>
                         <br />
                         <p>
-                            Etiam porta sem malesuada magna mollis euismod.
-                            Vivamus sagittis lacus vel augue laoreet rutrum
-                            faucibus dolor auctor. Nullam id dolor id nibh
-                            ultricies vehicula ut id elit.
+                            When I'm not engineering AI solutions or building
+                            software, you'll find me spending time with my dog
+                            Thor. I'm a huge animal lover - there's something
+                            special about the unconditional companionship they
+                            bring to our lives.
                         </p>
                         <br />
                         <p>
-                            Curabitur blandit tempus porttitor. Nullam quis
-                            risus eget urna mollis ornare vel eu leo. Donec
-                            sed odio dui. Vestibulum id ligula porta felis
-                            euismod semper.
+                            I believe in continuous learning and growth. Being
+                            self-taught has taught me that with enough curiosity
+                            and persistence, you can master anything you set
+                            your mind to.
                         </p>
                     </div>
                     <div style={styles.verticalImage}>
@@ -104,7 +105,7 @@ const About: React.FC<AboutProps> = (props) => {
                         </div>
                         <p>
                             <sub>
-                                <b>Figure 2:</b> Me, 2024
+                                <b>Figure 2:</b> Me and Thor
                             </sub>
                         </p>
                     </div>
@@ -112,17 +113,15 @@ const About: React.FC<AboutProps> = (props) => {
                 <br />
                 <br />
                 <p>
-                    Fusce dapibus, tellus ac cursus commodo, tortor mauris
-                    condimentum nibh, ut fermentum massa justo sit amet risus.
-                    Maecenas sed diam eget risus varius blandit sit amet non
-                    magna. Cum sociis natoque penatibus et magnis dis
-                    parturient montes, nascetur ridiculus mus.
+                    I'm always excited to take on new challenges and collaborate
+                    on interesting projects. Whether you need a website, social
+                    media management, custom software, or AI automation solutions,
+                    I'd love to hear about what you're building.
                 </p>
                 <br />
                 <p>
-                    Integer posuere erat a ante venenatis dapibus posuere velit
-                    aliquet. You can reach me through the{' '}
-                    <Link to="/contact">contact page</Link> or shoot me an email
+                    Let's create something amazing together. Reach out through the{' '}
+                    <Link to="/contact">contact page</Link> or email me directly
                     at{' '}
                     <a href="mailto:jc@wearescallywag.com">
                         jc@wearescallywag.com
