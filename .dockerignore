@@ -1,0 +1,8 @@
+node_modules
+public
+.git
+*.md
+.env
+.env.*
+inner-site-src/node_modules
+inner-site-src/build

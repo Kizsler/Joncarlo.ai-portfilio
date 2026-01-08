@@ -1,0 +1,320 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Texture Grid Tool V2 - Find the Black Bar</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 20px;
+            background: #1a1a1a;
+            color: white;
+            font-family: monospace;
+        }
+        h1 { text-align: center; color: #00ff00; }
+        .controls {
+            position: fixed;
+            top: 10px;
+            left: 10px;
+            background: rgba(0,0,0,0.95);
+            padding: 15px;
+            border: 2px solid #00ff00;
+            border-radius: 8px;
+            z-index: 1000;
+            max-width: 300px;
+        }
+        .controls h3 { margin-top: 0; color: #00ff00; }
+        .controls button {
+            padding: 8px 15px;
+            margin: 3px;
+            font-size: 14px;
+            cursor: pointer;
+            background: #0099ff;
+            border: none;
+            color: white;
+            border-radius: 4px;
+        }
+        .controls button:hover { background: #00bbff; }
+        .controls button.active { background: #ff6600; }
+        #coords {
+            position: fixed;
+            top: 10px;
+            right: 10px;
+            background: rgba(0,0,0,0.95);
+            padding: 20px;
+            border: 2px solid #ff6600;
+            border-radius: 8px;
+            font-size: 16px;
+            z-index: 1000;
+        }
+        #coords .big { color: #00ff00; font-size: 28px; font-weight: bold; }
+        #clicks {
+            position: fixed;
+            bottom: 10px;
+            right: 10px;
+            background: rgba(0,0,0,0.95);
+            padding: 15px;
+            border: 2px solid #ff00ff;
+            border-radius: 8px;
+            max-height: 250px;
+            overflow-y: auto;
+            z-index: 1000;
+            min-width: 200px;
+        }
+        #clicks h3 { margin-top: 0; color: #ff00ff; }
+        .click-entry { margin: 5px 0; padding: 5px; background: #333; border-radius: 4px; font-size: 14px; }
+        .container {
+            margin-left: 320px;
+            margin-top: 60px;
+            position: relative;
+            display: inline-block;
+        }
+        #canvas { cursor: crosshair; border: 2px solid #444; }
+        .dark-warning {
+            position: fixed;
+            bottom: 10px;
+            left: 10px;
+            background: rgba(255,0,0,0.9);
+            padding: 15px;
+            border-radius: 8px;
+            z-index: 1000;
+            display: none;
+        }
+        label { display: block; margin: 10px 0 5px 0; color: #aaa; }
+        input[type="range"] { width: 100%; }
+    </style>
+</head>
+<body>
+    <div class="controls">
+        <h3>Controls</h3>
+        <label>Zoom:</label>
+        <button onclick="setZoom(0.25)">25%</button>
+        <button onclick="setZoom(0.5)">50%</button>
+        <button onclick="setZoom(0.75)">75%</button>
+        <button onclick="setZoom(1)" class="active">100%</button>
+
+        <label>Show Grid:</label>
+        <button onclick="toggleGrid()" id="gridBtn">Grid: OFF</button>
+        <button onclick="setGridSize(100)">100px</button>
+        <button onclick="setGridSize(200)">200px</button>
+        <button onclick="setGridSize(500)">500px</button>
+
+        <label>Highlight Dark Areas (black bar detector):</label>
+        <button onclick="highlightDark()" id="darkBtn">Highlight: OFF</button>
+
+        <label>Dark threshold: <span id="threshVal">30</span></label>
+        <input type="range" id="threshold" min="5" max="100" value="30" onchange="updateThreshold()">
+
+        <div style="margin-top:15px; padding-top:10px; border-top:1px solid #444;">
+            <strong style="color:#ff6600;">My Previous Edits:</strong>
+            <div style="font-size:11px; margin-top:5px; color:#888;">
+                <div>X=1280-1720, Y=2670-2730 (logo)</div>
+                <div>X=1695-1960, Y=1045-1260</div>
+                <div>X=2845-3010, Y=3295-3460</div>
+                <div>X=0-470, Y=2655-2765</div>
+            </div>
+        </div>
+    </div>
+
+    <div id="coords">
+        <div>Mouse Position:</div>
+        <div>X: <span id="mouseX" class="big">-</span></div>
+        <div>Y: <span id="mouseY" class="big">-</span></div>
+        <div style="margin-top:10px; font-size:12px; color:#888;">
+            Pixel: <span id="pixelColor">-</span>
+        </div>
+    </div>
+
+    <div id="clicks">
+        <h3>Clicked Points:</h3>
+        <button onclick="clearClicks()" style="font-size:12px;padding:5px 10px;">Clear All</button>
+        <button onclick="copyClicks()" style="font-size:12px;padding:5px 10px;">Copy</button>
+        <div id="clickList"></div>
+    </div>
+
+    <div class="dark-warning" id="darkWarning">
+        <strong>DARK PIXEL DETECTED!</strong><br>
+        This could be the black bar!
+    </div>
+
+    <div class="container">
+        <canvas id="canvas"></canvas>
+    </div>
+
+    <script>
+        const canvas = document.getElementById('canvas');
+        const ctx = canvas.getContext('2d');
+        const img = new Image();
+
+        let zoom = 1;
+        let showGrid = false;
+        let gridSize = 200;
+        let highlightDarkAreas = false;
+        let darkThreshold = 30;
+        let clicks = [];
+        let imageData = null;
+
+        img.onload = () => {
+            canvas.width = img.width;
+            canvas.height = img.height;
+            redraw();
+        };
+        img.src = './static/models/Computer/baked_computer.jpg?' + Date.now();
+
+        function redraw() {
+            canvas.style.width = (img.width * zoom) + 'px';
+            canvas.style.height = (img.height * zoom) + 'px';
+
+            ctx.drawImage(img, 0, 0);
+            imageData = ctx.getImageData(0, 0, canvas.width, canvas.height);
+
+            if (highlightDarkAreas) {
+                drawDarkHighlights();
+            }
+
+            if (showGrid) {
+                drawGrid();
+            }
+
+            drawClickMarkers();
+        }
+
+        function drawGrid() {
+            ctx.strokeStyle = 'rgba(255, 255, 0, 0.5)';
+            ctx.lineWidth = 2;
+            ctx.font = '24px monospace';
+            ctx.fillStyle = 'yellow';
+
+            for (let x = 0; x < canvas.width; x += gridSize) {
+                ctx.beginPath();
+                ctx.moveTo(x, 0);
+                ctx.lineTo(x, canvas.height);
+                ctx.stroke();
+                ctx.fillText(x.toString(), x + 5, 30);
+            }
+            for (let y = 0; y < canvas.height; y += gridSize) {
+                ctx.beginPath();
+                ctx.moveTo(0, y);
+                ctx.lineTo(canvas.width, y);
+                ctx.stroke();
+                ctx.fillText(y.toString(), 5, y + 30);
+            }
+        }
+
+        function drawDarkHighlights() {
+            const data = imageData.data;
+            ctx.fillStyle = 'rgba(255, 0, 0, 0.7)';
+
+            for (let y = 0; y < canvas.height; y += 10) {
+                for (let x = 0; x < canvas.width; x += 10) {
+                    const i = (y * canvas.width + x) * 4;
+                    const avg = (data[i] + data[i+1] + data[i+2]) / 3;
+                    if (avg < darkThreshold) {
+                        ctx.fillRect(x, y, 10, 10);
+                    }
+                }
+            }
+        }
+
+        function drawClickMarkers() {
+            clicks.forEach((click, idx) => {
+                ctx.beginPath();
+                ctx.arc(click.x, click.y, 15, 0, Math.PI * 2);
+                ctx.fillStyle = 'rgba(0, 255, 0, 0.8)';
+                ctx.fill();
+                ctx.strokeStyle = 'white';
+                ctx.lineWidth = 3;
+                ctx.stroke();
+
+                ctx.fillStyle = 'black';
+                ctx.font = 'bold 16px monospace';
+                ctx.textAlign = 'center';
+                ctx.fillText((idx + 1).toString(), click.x, click.y + 5);
+            });
+        }
+
+        function setZoom(z) {
+            zoom = z;
+            document.querySelectorAll('.controls button').forEach(b => {
+                if (b.textContent.includes('%')) b.classList.remove('active');
+            });
+            event.target.classList.add('active');
+            redraw();
+        }
+
+        function toggleGrid() {
+            showGrid = !showGrid;
+            document.getElementById('gridBtn').textContent = 'Grid: ' + (showGrid ? 'ON' : 'OFF');
+            redraw();
+        }
+
+        function setGridSize(size) {
+            gridSize = size;
+            if (showGrid) redraw();
+        }
+
+        function highlightDark() {
+            highlightDarkAreas = !highlightDarkAreas;
+            document.getElementById('darkBtn').textContent = 'Highlight: ' + (highlightDarkAreas ? 'ON' : 'OFF');
+            redraw();
+        }
+
+        function updateThreshold() {
+            darkThreshold = parseInt(document.getElementById('threshold').value);
+            document.getElementById('threshVal').textContent = darkThreshold;
+            if (highlightDarkAreas) redraw();
+        }
+
+        canvas.addEventListener('mousemove', (e) => {
+            const rect = canvas.getBoundingClientRect();
+            const x = Math.round((e.clientX - rect.left) / zoom);
+            const y = Math.round((e.clientY - rect.top) / zoom);
+
+            document.getElementById('mouseX').textContent = x;
+            document.getElementById('mouseY').textContent = y;
+
+            if (imageData && x >= 0 && x < canvas.width && y >= 0 && y < canvas.height) {
+                const i = (y * canvas.width + x) * 4;
+                const r = imageData.data[i];
+                const g = imageData.data[i + 1];
+                const b = imageData.data[i + 2];
+                const avg = Math.round((r + g + b) / 3);
+                document.getElementById('pixelColor').textContent = `RGB(${r},${g},${b}) avg=${avg}`;
+
+                const warning = document.getElementById('darkWarning');
+                if (avg < 30) {
+                    warning.style.display = 'block';
+                } else {
+                    warning.style.display = 'none';
+                }
+            }
+        });
+
+        canvas.addEventListener('click', (e) => {
+            const rect = canvas.getBoundingClientRect();
+            const x = Math.round((e.clientX - rect.left) / zoom);
+            const y = Math.round((e.clientY - rect.top) / zoom);
+
+            clicks.push({x, y});
+
+            const entry = document.createElement('div');
+            entry.className = 'click-entry';
+            entry.innerHTML = `<strong>#${clicks.length}:</strong> X=${x}, Y=${y}`;
+            document.getElementById('clickList').appendChild(entry);
+
+            redraw();
+        });
+
+        function clearClicks() {
+            clicks = [];
+            document.getElementById('clickList').innerHTML = '';
+            redraw();
+        }
+
+        function copyClicks() {
+            const text = clicks.map((c, i) => `#${i+1}: X=${c.x}, Y=${c.y}`).join('\n');
+            navigator.clipboard.writeText(text);
+            alert('Copied to clipboard!');
+        }
+    </script>
+</body>
+</html>
