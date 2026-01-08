@@ -132,9 +132,10 @@ const Contact: React.FC<ContactProps> = (props) => {
             </div>
             <div className="text-block">
                 <p>
-                    Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-                    Feel free to reach out - I would love to chat! You can
-                    reach me via email below.
+                    I'm always excited to hear about new projects and opportunities.
+                    Whether you need a website, social media strategy, custom software,
+                    or AI automation solutions, I'd love to chat! You can reach me
+                    via email or fill out the form below.
                 </p>
                 <br />
                 <p>
