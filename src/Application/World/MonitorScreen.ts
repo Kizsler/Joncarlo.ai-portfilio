@@ -182,8 +182,9 @@ export default class MonitorScreen extends EventEmitter {
             }
         };
 
-        // Set iframe attributes - inner site served from same domain
-        iframe.src = '/inner-site/';
+        // Set iframe attributes - use localhost for dev, /inner-site/ for production
+        const isDev = window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1';
+        iframe.src = isDev ? 'http://localhost:3002/' : '/inner-site/';
         iframe.style.width = this.screenSize.width + 'px';
         iframe.style.height = this.screenSize.height + 'px';
         iframe.style.padding = IFRAME_PADDING + 'px';
