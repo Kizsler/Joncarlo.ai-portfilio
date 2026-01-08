@@ -46,18 +46,6 @@ const About: React.FC<AboutProps> = (props) => {
                     streamline workflows and boost productivity.
                 </p>
                 <br />
-                <div className="captioned-image">
-                    <div style={styles.placeholder}>
-                        <p style={styles.placeholderText}>Photo Coming Soon</p>
-                    </div>
-                    <p>
-                        <sub>
-                            <b>Figure 1:</b> Building the future, one line of code
-                            at a time
-                        </sub>
-                    </p>
-                </div>
-
                 <p>
                     Being in San Francisco puts me right at the epicenter of
                     technological innovation. It's an environment that constantly
@@ -72,44 +60,22 @@ const About: React.FC<AboutProps> = (props) => {
                     ideas come to life through code.
                 </p>
                 <br />
+                <h3>Beyond the Code</h3>
                 <br />
-                <div style={{}}>
-                    <div
-                        style={{
-                            flex: 1,
-                            textAlign: 'justify',
-                            alignSelf: 'center',
-                            flexDirection: 'column',
-                        }}
-                    >
-                        <h3>Beyond the Code</h3>
-                        <br />
-                        <p>
-                            When I'm not engineering AI solutions or building
-                            software, you'll find me spending time with my dog
-                            Thor. I'm a huge animal lover - there's something
-                            special about the unconditional companionship they
-                            bring to our lives.
-                        </p>
-                        <br />
-                        <p>
-                            I believe in continuous learning and growth. Being
-                            self-taught has taught me that with enough curiosity
-                            and persistence, you can master anything you set
-                            your mind to.
-                        </p>
-                    </div>
-                    <div style={styles.verticalImage}>
-                        <div style={styles.placeholderVertical}>
-                            <p style={styles.placeholderText}>Photo Coming Soon</p>
-                        </div>
-                        <p>
-                            <sub>
-                                <b>Figure 2:</b> Me and Thor
-                            </sub>
-                        </p>
-                    </div>
-                </div>
+                <p>
+                    When I'm not engineering AI solutions or building
+                    software, you'll find me spending time with my dog
+                    Thor. I'm a huge animal lover - there's something
+                    special about the unconditional companionship they
+                    bring to our lives.
+                </p>
+                <br />
+                <p>
+                    I believe in continuous learning and growth. Being
+                    self-taught has taught me that with enough curiosity
+                    and persistence, you can master anything you set
+                    your mind to.
+                </p>
                 <br />
                 <br />
                 <p>
@@ -132,54 +98,6 @@ const About: React.FC<AboutProps> = (props) => {
     );
 };
 
-const styles: StyleSheetCSS = {
-    contentHeader: {
-        marginBottom: 16,
-        fontSize: 48,
-    },
-    image: {
-        height: 'auto',
-        width: '100%',
-    },
-    topImage: {
-        height: 'auto',
-        width: '100%',
-        marginBottom: 32,
-    },
-    verticalImage: {
-        alignSelf: 'center',
-        // width: '80%',
-        marginLeft: 32,
-        flex: 0.8,
-
-        alignItems: 'center',
-        // marginBottom: 32,
-        textAlign: 'center',
-        flexDirection: 'column',
-    },
-    placeholder: {
-        width: '100%',
-        height: 300,
-        backgroundColor: '#e0e0e0',
-        display: 'flex',
-        justifyContent: 'center',
-        alignItems: 'center',
-        border: '2px dashed #999',
-    },
-    placeholderVertical: {
-        width: '100%',
-        height: 250,
-        backgroundColor: '#e0e0e0',
-        display: 'flex',
-        justifyContent: 'center',
-        alignItems: 'center',
-        border: '2px dashed #999',
-    },
-    placeholderText: {
-        color: '#666',
-        fontSize: 16,
-        fontStyle: 'italic',
-    },
-};
+const styles: StyleSheetCSS = {};
 
 export default About;
