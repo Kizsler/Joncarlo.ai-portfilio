@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import currySips1 from '../../../assets/pictures/projects/social-media/curry-sips-1.jpg';
 import currySips2 from '../../../assets/pictures/projects/social-media/curry-sips-2.jpg';
 import kaiCenatImg from '../../../assets/pictures/projects/social-media/kai-cenat-streamer-university.jpg';
+import MobileNav from '../MobileNav';
 
 export interface SocialMediaProjectsProps {}
 
@@ -33,6 +34,7 @@ const SocialMediaProjects: React.FC<SocialMediaProjectsProps> = (props) => {
 
     return (
         <div className="site-page-content">
+            <MobileNav />
             <h1>Social Media</h1>
             <h3>Projects</h3>
             <br />

@@ -400,3 +400,136 @@ input:active {
     cursor: pointer;
     color: white;
 }
+
+/* Navbar styles */
+.vertical-navbar {
+    width: 300px;
+    height: 100%;
+    flex-direction: column;
+    padding: 48px;
+    box-sizing: border-box;
+    position: fixed;
+    overflow: hidden;
+}
+
+/* Home page styles */
+.home-page {
+    left: 0;
+    right: 0;
+    top: 0;
+    position: absolute;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    height: 100%;
+}
+
+.home-name {
+    font-size: 72px;
+    margin-bottom: 16px;
+    line-height: 0.9;
+}
+
+.home-buttons {
+    justify-content: space-between;
+    flex-wrap: wrap;
+}
+
+/* Mobile navigation header */
+.mobile-nav {
+    display: none;
+    padding: 8px 0;
+    margin-bottom: 16px;
+    border-bottom: 2px solid #ccc;
+    flex-wrap: wrap;
+    gap: 12px;
+}
+
+.mobile-nav a {
+    font-family: MillenniumBold, 'Times New Roman', Times, serif;
+    font-size: 14px;
+    color: black;
+    text-decoration: underline;
+}
+
+/* Mobile Responsive Styles */
+@media screen and (max-width: 768px) {
+    .vertical-navbar {
+        display: none;
+    }
+
+    .mobile-nav {
+        display: flex;
+    }
+
+    .home-name {
+        font-size: 42px;
+    }
+
+    .home-buttons {
+        flex-direction: column;
+        align-items: center;
+        gap: 8px;
+    }
+
+    .home-buttons > * {
+        margin: 4px 0;
+    }
+    h1 {
+        font-size: 36px;
+    }
+
+    h2 {
+        font-size: 24px;
+    }
+
+    h3 {
+        font-size: 18px;
+    }
+
+    p {
+        font-size: 16px;
+    }
+
+    .site-page-content {
+        margin-left: 0;
+        padding: 16px;
+        padding-top: 16px;
+    }
+
+    .text-block {
+        margin-top: 12px;
+        margin-bottom: 24px;
+    }
+
+    .captioned-image {
+        margin-bottom: 16px;
+    }
+
+    .big-button-container {
+        padding: 16px;
+    }
+}
+
+/* Very small screens */
+@media screen and (max-width: 480px) {
+    h1 {
+        font-size: 28px;
+    }
+
+    h2 {
+        font-size: 20px;
+    }
+
+    h3 {
+        font-size: 16px;
+    }
+
+    p {
+        font-size: 14px;
+    }
+
+    .site-page-content {
+        padding: 12px;
+    }
+}

@@ -14,12 +14,12 @@ const Home: React.FC<HomeProps> = (props) => {
     };
 
     return (
-        <div style={styles.page}>
+        <div className="home-page">
             <div style={styles.header}>
-                <h1 style={styles.name}>Joncarlo Benton</h1>
+                <h1 className="home-name">Joncarlo Benton</h1>
                 <h2>AI Engineer</h2>
             </div>
-            <div style={styles.buttons}>
+            <div className="home-buttons">
                 <Link containerStyle={styles.link} to="about" text="ABOUT" />
                 <Link
                     containerStyle={styles.link}

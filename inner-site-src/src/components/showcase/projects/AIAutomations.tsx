@@ -3,6 +3,7 @@ import paymentAutomationImg from '../../../assets/pictures/projects/automations/
 import personalAssistantImg from '../../../assets/pictures/projects/automations/personal-assistant.png';
 import ragAgentImg from '../../../assets/pictures/projects/automations/rag-agent.png';
 import ImageModal from '../../general/ImageModal';
+import MobileNav from '../MobileNav';
 
 export interface AIAutomationsProjectsProps {}
 
@@ -17,6 +18,7 @@ const AIAutomationsProjects: React.FC<AIAutomationsProjectsProps> = (props) => {
 
     return (
         <div className="site-page-content">
+            <MobileNav />
             <h1>AI Automations</h1>
             <h3>Projects</h3>
             <br />

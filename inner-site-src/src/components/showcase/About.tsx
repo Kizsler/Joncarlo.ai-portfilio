@@ -3,6 +3,7 @@ import React from 'react';
 // import meNow from '../../assets/pictures/currentme.jpg';
 import { Link } from 'react-router-dom';
 // import ResumeDownload from './ResumeDownload';
+import MobileNav from './MobileNav';
 
 export interface AboutProps {}
 
@@ -10,6 +11,7 @@ const About: React.FC<AboutProps> = (props) => {
     return (
         // add on resize listener
         <div className="site-page-content">
+            <MobileNav />
             {/* <img src={me} style={styles.topImage} alt="" /> */}
             <h1 style={{ marginLeft: -16 }}>Welcome</h1>
             <h3>I'm Joncarlo Benton</h3>

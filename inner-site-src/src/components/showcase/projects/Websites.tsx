@@ -2,12 +2,14 @@ import React from 'react';
 import scallywagLogo from '../../../assets/pictures/projects/websites/scallywag.png';
 import taxImmigrationImg from '../../../assets/pictures/projects/websites/tax-immigration.png';
 import barosTaxImg from '../../../assets/pictures/projects/websites/baros-tax.png';
+import MobileNav from '../MobileNav';
 
 export interface WebsitesProjectsProps {}
 
 const WebsitesProjects: React.FC<WebsitesProjectsProps> = (props) => {
     return (
         <div className="site-page-content">
+            <MobileNav />
             <h1>Websites</h1>
             <h3>Projects</h3>
             <br />

@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router';
+import MobileNav from './MobileNav';
 
 export interface ProjectsProps {}
 
@@ -51,6 +52,7 @@ const ProjectBox: React.FC<ProjectBoxProps> = ({
 const Projects: React.FC<ProjectsProps> = (props) => {
     return (
         <div className="site-page-content">
+            <MobileNav />
             <h1>Projects</h1>
             <br />
             <p>

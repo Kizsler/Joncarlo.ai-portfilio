@@ -4,6 +4,7 @@ import twitterIcon from '../../assets/pictures/contact-twitter.png';
 import ghIcon from '../../assets/pictures/contact-gh.png';
 import inIcon from '../../assets/pictures/contact-in.png';
 import ResumeDownload from './ResumeDownload';
+import MobileNav from './MobileNav';
 
 export interface ContactProps {}
 
@@ -111,6 +112,7 @@ const Contact: React.FC<ContactProps> = (props) => {
 
     return (
         <div className="site-page-content">
+            <MobileNav />
             <div style={styles.header}>
                 <h1>Contact</h1>
                 <div style={styles.socials}>

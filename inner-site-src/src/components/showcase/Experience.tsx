@@ -1,11 +1,13 @@
 import React from 'react';
 // import ResumeDownload from './ResumeDownload';
+import MobileNav from './MobileNav';
 
 export interface ExperienceProps {}
 
 const Experience: React.FC<ExperienceProps> = (props) => {
     return (
         <div className="site-page-content">
+            <MobileNav />
             {/* <ResumeDownload /> */}
             <h1>Previous Work</h1>
             <h3>Experience</h3>
