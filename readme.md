@@ -4,6 +4,8 @@
 
 A creative portfolio website featuring a fully-rendered 3D computer scene with an interactive 2D OS running inside the monitor. Built with Three.js, React, and custom WebGL shaders.
 
+![Demo](demo.gif)
+
 ![Three.js](https://img.shields.io/badge/Three.js-0.137-black?logo=three.js&logoColor=white)
 ![React](https://img.shields.io/badge/React-17-61DAFB?logo=react&logoColor=white)
 ![TypeScript](https://img.shields.io/badge/TypeScript-4.6-3178C6?logo=typescript&logoColor=white)
