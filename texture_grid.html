@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Texture Grid Tool - Click on the Logo</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 20px;
+            background: #1a1a1a;
+            color: white;
+            font-family: monospace;
+        }
+        h1 {
+            text-align: center;
+            color: #00ff00;
+        }
+        .instructions {
+            text-align: center;
+            margin-bottom: 20px;
+            padding: 15px;
+            background: #333;
+            border-radius: 8px;
+        }
+        .container {
+            position: relative;
+            display: inline-block;
+            max-width: 100%;
+            overflow: auto;
+        }
+        #texture {
+            display: block;
+            cursor: crosshair;
+        }
+        #coords {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            background: rgba(0,0,0,0.9);
+            padding: 20px;
+            border: 2px solid #00ff00;
+            border-radius: 8px;
+            font-size: 18px;
+            z-index: 1000;
+        }
+        #coords .highlight {
+            color: #00ff00;
+            font-size: 24px;
+            font-weight: bold;
+        }
+        .marker {
+            position: absolute;
+            width: 20px;
+            height: 20px;
+            background: red;
+            border: 2px solid yellow;
+            border-radius: 50%;
+            transform: translate(-50%, -50%);
+            pointer-events: none;
+        }
+        #clicks {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            background: rgba(0,0,0,0.9);
+            padding: 15px;
+            border: 2px solid #ff6600;
+            border-radius: 8px;
+            max-height: 300px;
+            overflow-y: auto;
+            z-index: 1000;
+        }
+        #clicks h3 {
+            margin-top: 0;
+            color: #ff6600;
+        }
+        .click-entry {
+            margin: 5px 0;
+            padding: 5px;
+            background: #222;
+            border-radius: 4px;
+        }
+        #zoomControls {
+            position: fixed;
+            top: 20px;
+            left: 20px;
+            background: rgba(0,0,0,0.9);
+            padding: 15px;
+            border: 2px solid #0099ff;
+            border-radius: 8px;
+            z-index: 1000;
+        }
+        button {
+            padding: 10px 20px;
+            margin: 5px;
+            font-size: 16px;
+            cursor: pointer;
+            background: #0099ff;
+            border: none;
+            color: white;
+            border-radius: 4px;
+        }
+        button:hover {
+            background: #00bbff;
+        }
+    </style>
+</head>
+<body>
+    <h1>Texture Grid Tool - Click on the Heffernan Logo</h1>
+    <div class="instructions">
+        Click directly on the "Heffernan henry inc" logo in the texture below.<br>
+        The texture is 4096x4096 pixels. Use zoom controls if needed.<br>
+        <strong>After clicking, copy the coordinates and tell me!</strong>
+    </div>
+
+    <div id="zoomControls">
+        <strong>Zoom:</strong><br>
+        <button onclick="setZoom(0.25)">25%</button>
+        <button onclick="setZoom(0.5)">50%</button>
+        <button onclick="setZoom(1)">100%</button>
+        <button onclick="setZoom(2)">200%</button>
+    </div>
+
+    <div id="coords">
+        <div>Mouse Position:</div>
+        <div>X: <span id="mouseX" class="highlight">-</span></div>
+        <div>Y: <span id="mouseY" class="highlight">-</span></div>
+    </div>
+
+    <div id="clicks">
+        <h3>Clicked Points:</h3>
+        <div id="clickList"></div>
+    </div>
+
+    <div class="container" id="imageContainer">
+        <img id="texture" src="./static/models/Computer/baked_computer.jpg" alt="Computer Texture">
+    </div>
+
+    <script>
+        const img = document.getElementById('texture');
+        const container = document.getElementById('imageContainer');
+        const mouseX = document.getElementById('mouseX');
+        const mouseY = document.getElementById('mouseY');
+        const clickList = document.getElementById('clickList');
+
+        let zoom = 0.5;
+        let clicks = [];
+
+        function setZoom(z) {
+            zoom = z;
+            img.style.width = (4096 * zoom) + 'px';
+        }
+
+        // Start at 50% zoom
+        setZoom(0.5);
+
+        img.addEventListener('mousemove', (e) => {
+            const rect = img.getBoundingClientRect();
+            const x = Math.round((e.clientX - rect.left) / zoom);
+            const y = Math.round((e.clientY - rect.top) / zoom);
+            mouseX.textContent = x;
+            mouseY.textContent = y;
+        });
+
+        img.addEventListener('click', (e) => {
+            const rect = img.getBoundingClientRect();
+            const x = Math.round((e.clientX - rect.left) / zoom);
+            const y = Math.round((e.clientY - rect.top) / zoom);
+
+            clicks.push({x, y});
+
+            // Add marker
+            const marker = document.createElement('div');
+            marker.className = 'marker';
+            marker.style.left = (e.clientX - container.getBoundingClientRect().left) + 'px';
+            marker.style.top = (e.clientY - container.getBoundingClientRect().top + container.scrollTop) + 'px';
+            container.appendChild(marker);
+
+            // Add to list
+            const entry = document.createElement('div');
+            entry.className = 'click-entry';
+            entry.innerHTML = `<strong>#${clicks.length}:</strong> X=${x}, Y=${y}`;
+            clickList.appendChild(entry);
+
+            console.log(`Clicked at X=${x}, Y=${y}`);
+        });
+    </script>
+</body>
+</html>

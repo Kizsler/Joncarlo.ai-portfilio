@@ -1,0 +1,9 @@
+node_modules
+.DS_Store
+*.psd
+.env
+.env.*
+
+# Build outputs
+public/
+inner-site-src/build/
