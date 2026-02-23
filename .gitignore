@@ -5,5 +5,5 @@ node_modules
 .env.*
 
 # Build outputs
-public/
+/public/
 inner-site-src/build/
